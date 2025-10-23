@@ -14,13 +14,14 @@ const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 // Ambil data revenue
 export async function fetchRevenue() {
   try {
-    const data = await sql<Revenue[]>`SELECT * FROM revenue`;
-    return data;
+    const data = await sql<Revenue[]>`SELECT * FROM revenue`; // ❌ hapus <Revenue[]>
+    return data as Revenue[];
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch revenue data.');
   }
 }
+
 
 // Ambil 5 invoice terbaru
 export async function fetchLatestInvoices() {
